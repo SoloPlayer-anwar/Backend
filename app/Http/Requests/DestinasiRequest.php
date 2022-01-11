@@ -34,14 +34,7 @@ class DestinasiRequest extends FormRequest
             'place' => 'required',
             'price' => 'required|integer',
             'expired' => 'required',
-            'description' => 'required',
-            'quantity' => '',
-            'total' => '',
-            'checkin' => '',
-            'nama_bandara' => '',
-            'provinsi' => '',
-            'jam_terbang' => '',
-            'picture_pesawat' => '',
+            'description' => 'required'
         ];
     }
 }

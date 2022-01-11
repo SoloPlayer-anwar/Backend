@@ -28,14 +28,6 @@ class CreateDestinasisTable extends Migration
             $table->string('expired')->nullable();
             $table->text('description')->nullable();
 
-            $table->integer('quantity')->nullable();
-            $table->integer('total')->nullable();
-            $table->string('checkin')->nullable();
-            $table->string('nama_bandara')->nullable();
-            $table->string('provinsi')->nullable();
-            $table->string('jam_terbang')->nullable();
-            $table->text('picture_pesawat')->nullable();
-
             $table->timestamps();
 
 

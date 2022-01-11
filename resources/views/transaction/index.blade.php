@@ -12,7 +12,6 @@
                     <thead>
                     <tr>
                         <th class="border px-6 py-4">ID</th>
-                        <th class="border px-6 py-4">Product</th>
                         <th class="border px-6 py-4">Destinasi</th>
                         <th class="border px-6 py-4">User</th>
                         <th class="border px-6 py-4">Quantity</th>
@@ -25,17 +24,16 @@
                         @forelse($transaction as $item)
                             <tr>
                                 <td class="border px-6 py-4">{{ $item->id }}</td>
-                                <td class="border px-6 py-4 ">{{ $item->product->name }}</td>
                                 <td class="border px-6 py-4 ">{{ $item->destinasi->name }}</td>
                                 <td class="border px-6 py-4 ">{{ $item->user->name }}</td>
                                 <td class="border px-6 py-4">{{ $item->quantity }}</td>
                                 <td class="border px-6 py-4">{{ number_format($item->total) }}</td>
                                 <td class="border px-6 py-4">{{ $item->status }}</td>
                                 <td class="border px-6 py- text-center">
-                                    <a href="{{ route('transactions.show', $item->id) }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">
+                                    <a href="{{ route('transaction.show', $item->id) }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">
                                         View
                                     </a>
-                                    <form action="{{ route('transactions.destroy', $item->id) }}" method="POST" class="inline-block">
+                                    <form action="{{ route('transaction.destroy', $item->id) }}" method="POST" class="inline-block">
                                         {!! method_field('delete') . csrf_field() !!}
                                         <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded inline-block">
                                             Delete

@@ -29,10 +29,6 @@ class CreateProductsTable extends Migration
             $table->string('expired')->nullable();
             $table->text('description')->nullable();
 
-            $table->integer('quantity')->nullable();
-            $table->integer('total')->nullable();
-            $table->string('checkin')->nullable();
-
             $table->timestamps();
         });
     }

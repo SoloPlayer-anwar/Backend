@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class Product extends Model
+class Explore extends Model
 {
     use HasFactory;
 
@@ -17,17 +17,13 @@ class Product extends Model
      * @var string[]
      */
     protected $fillable = [
-        'picture_path',
-        'name',
-        'rate',
-        'category',
-        'lat',
-        'long',
-        'map',
-        'place',
-        'price',
-        'expired',
-        'description'
+
+        'name_guide',
+        'photo_guide',
+        'judul_guide',
+        'address_destination',
+        'video',
+        'photo_destination'
     ];
 
     public function getCreatedAtAttribute($value)
@@ -40,8 +36,13 @@ class Product extends Model
         return Carbon::parse($value)->timestamp;
     }
 
-    public function getPicturePathAttribute()
+    public function getPhotoGuideAttribute()
     {
-        return url('') . Storage::url($this->attributes['picture_path']);
+        return url('') . Storage::url($this->attributes['photo_guide']);
+    }
+
+    public function getPhotoDestinationAttribute()
+    {
+        return url('') . Storage::url($this->attributes['photo_destination']);
     }
 }

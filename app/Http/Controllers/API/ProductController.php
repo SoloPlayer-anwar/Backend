@@ -15,9 +15,6 @@ class ProductController extends Controller
         $limit = $request->input('limit', 36);
         $name = $request->input('name');
         $category = $request->input('category');
-        $quantity = $request->input('quantity');
-        $total = $request->input('total');
-        $checkin = $request->input('checkin');
 
         if($id)
         {
@@ -50,21 +47,6 @@ class ProductController extends Controller
         if($category)
         {
             $product->where('category', 'like', '%' .$category, '%');
-        }
-
-        if($quantity)
-        {
-            $product->where('quantity', 'like', '%' .$quantity, '%');
-        }
-
-        if($total)
-        {
-            $product->where('total', 'like', '%' .$total, '%');
-        }
-
-        if($checkin)
-        {
-            $product->where('checkin', 'like', '%' .$checkin, '%');
         }
 
         return ResponseFormmater::success(

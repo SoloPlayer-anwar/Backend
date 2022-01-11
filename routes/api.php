@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\BandaraController;
 use App\Http\Controllers\API\DestinasiController;
+use App\Http\Controllers\API\ExploreController;
 use App\Http\Controllers\API\MidtransController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\TransactionController;
@@ -39,6 +40,7 @@ Route::post('product/{id}', [ProductController::class, 'updateProduct']);
 Route::get('bandara', [BandaraController::class, 'bandara']);
 Route::get('destinasi', [DestinasiController::class, 'destinasi']);
 Route::post('destinasi/{id}', [DestinasiController::class, 'updateDestinasi']);
+Route::get('explore', [ExploreController::class, 'explore']);
 
 
 Route::post('midtrans/callback', [MidtransController::class, 'midtrans']);

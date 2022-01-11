@@ -27,14 +27,7 @@ class Destinasi extends Model
         'place',
         'price',
         'expired',
-        'description',
-        'quantity',
-        'total',
-        'checkin',
-        'nama_bandara',
-        'provinsi',
-        'jam_terbang',
-        'picture_pesawat'
+        'description'
     ];
 
     public function getCreatedAtAttribute($value)

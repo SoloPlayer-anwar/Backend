@@ -35,10 +35,6 @@ class ProductRequest extends FormRequest
             'price' => 'required|integer',
             'expired' => 'required',
             'description' => 'required',
-            'quantity' => '',
-            'total' => '',
-            'checkin' => ''
-
         ];
     }
 }

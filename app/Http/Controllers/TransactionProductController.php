@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaction;
 use Illuminate\Http\Request;
 
-class TransactionController extends Controller
+class TransactionProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,15 +13,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transaction = Transaction::with(['product','destinasi', 'user'])->paginate(10);
-
-        return view('transaction.index', [
-            'transaction' => $transaction
-        ]);
-
-        return view('transaction.index_product', [
-            'transaction' =>$transaction
-        ]);
+        //
     }
 
     /**
@@ -52,15 +43,9 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show($id)
     {
-        return view('transaction.detail', [
-            'item' => $transaction
-        ]);
-
-        return view('transaction.detail_product', [
-            'item' => $transaction
-        ]);
+        //
     }
 
     /**
@@ -92,22 +77,8 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaction $transaction)
+    public function destroy($id)
     {
-        $transaction->delete();
-        return redirect()->route('transaction.index');
-
-        $transaction->delete();
-        return redirect()->route('transaction.index_product');
-    }
-
-    public function changeStatus(Request $request, $id, $status)
-    {
-        $transaction = Transaction::findOrFail($id);
-        $transaction->status = $status;
-        $transaction->save();
-
-        return redirect()->route('transaction.show', $id);
-        return redirect()->route('transaction.show', $id);
+        //
     }
 }

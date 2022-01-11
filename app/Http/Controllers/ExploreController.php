@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaction;
+use App\Http\Requests\ExploreRequest;
+use App\Models\Explore;
 use Illuminate\Http\Request;
 
-class TransactionController extends Controller
+class ExploreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,14 +15,9 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transaction = Transaction::with(['product','destinasi', 'user'])->paginate(10);
-
-        return view('transaction.index', [
-            'transaction' => $transaction
-        ]);
-
-        return view('transaction.index_product', [
-            'transaction' =>$transaction
+        $explore = Explore::paginate(10);
+        return view('explore.index', [
+            'explore' => $explore
         ]);
     }
 
@@ -32,7 +28,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        return view('explore.create');
     }
 
     /**
@@ -41,9 +37,14 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExploreRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['photo_guide'] = $request->file('photo_guide')->store('assets/guideUser', 'public');
+        $data['photo_destination'] = $request->file('photo_destination')->store('assets/photoDestination', 'public');
+
+        Explore::create($data);
+        return redirect()->route('explore.index');
     }
 
     /**
@@ -52,15 +53,9 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show($id)
     {
-        return view('transaction.detail', [
-            'item' => $transaction
-        ]);
-
-        return view('transaction.detail_product', [
-            'item' => $transaction
-        ]);
+        //
     }
 
     /**
@@ -92,22 +87,9 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaction $transaction)
+    public function destroy(Explore $explore)
     {
-        $transaction->delete();
-        return redirect()->route('transaction.index');
-
-        $transaction->delete();
-        return redirect()->route('transaction.index_product');
-    }
-
-    public function changeStatus(Request $request, $id, $status)
-    {
-        $transaction = Transaction::findOrFail($id);
-        $transaction->status = $status;
-        $transaction->save();
-
-        return redirect()->route('transaction.show', $id);
-        return redirect()->route('transaction.show', $id);
+        $explore->delete();
+        return redirect()->route('explore.index');
     }
 }

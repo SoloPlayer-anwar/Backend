@@ -27,7 +27,8 @@ class Transaction extends Model
         'checkin',
         'nama_bandara',
         'provinsi',
-        'jam_terbang'
+        'jam_terbang',
+        'picture_pesawat'
 
     ];
 
@@ -45,17 +46,17 @@ class Transaction extends Model
 
     public function product()
     {
-        return $this->hasOne(Product::class, 'id', 'product_id');
+        return $this->belongsTo(Product::class);
     }
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function destinasi()
     {
-        return $this->hasOne(Destinasi::class, 'id', 'destinasi_id');
+        return $this->belongsTo(Destinasi::class);
     }
 
 }

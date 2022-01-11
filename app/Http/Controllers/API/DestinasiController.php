@@ -15,11 +15,6 @@ class DestinasiController extends Controller
         $limit = $request->input('limit', 36);
         $name = $request->input('name');
         $category = $request->input('category');
-        $quantity = $request->input('quantity');
-        $total = $request->input('total');
-        $checkin = $request->input('checkin');
-        $nama_bandara = $request->input('nama_bandara');
-        $provinsi = $request->input('provinsi');
 
 
         if($id)
@@ -52,30 +47,7 @@ class DestinasiController extends Controller
 
         if($category)
         {
-            $destinasi->where('quantity', 'like', '%' .$quantity, '%');
-        }
-
-        if($total)
-        {
-            $destinasi->where('total', 'like', '%' .$total, '%');
-        }
-
-        if($checkin)
-        {
-            $destinasi->where('checkin', 'like', '%' .$checkin, '%');
-        }
-
-
-        if($nama_bandara)
-        {
-            $destinasi->where('nama_bandara', 'like', '%' .$nama_bandara, '%');
-        }
-
-
-
-        if($provinsi)
-        {
-            $destinasi->where('provinsi', 'like', '%' .$provinsi, '%');
+            $destinasi->where('category', 'like', '%' .$category, '%');
         }
 
         return ResponseFormmater::success(

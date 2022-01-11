@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\MidtransController;
 use App\Http\Controllers\BandaraController;
 use App\Http\Controllers\DestinasiController;
+use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -34,6 +35,7 @@ Route::get('transaction/{id}/status/{status}', [TransactionController::class, 'c
 Route::resource('transaction',TransactionController::class);
 Route::resource('bandara',BandaraController::class);
 Route::resource('destinasi', DestinasiController::class);
+Route::resource('explore', ExploreController::class);
 
 
 Route::get('midtrans/success', [MidtransController::class, 'success']);

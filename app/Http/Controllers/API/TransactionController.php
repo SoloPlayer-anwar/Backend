@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Midtrans\Config;
 use Midtrans\Snap;
 use phpDocumentor\Reflection\Types\Null_;
@@ -85,15 +86,30 @@ class TransactionController extends Controller
     public function checkout(Request $request)
     {
 
-        $request->validate([
+        $validation = Validator::make($request->all(),[
             'user_id' => 'required|exists:users,id',
             'product_id' => 'exists:products,id',
             'destinasi_id' => 'exists:destinasis,id',
             'quantity' => 'required',
             'total' => 'required',
             'status' => 'required',
-            'checkin' => 'required'
+            'checkin' => 'required',
+            'nama_bandara' => '',
+            'provinsi' => '',
+            'picture_pesawat' => '',
+            'jam_terbang' => ''
         ]);
+
+        Config::$serverKey = config('services.midtrans.serverKey');
+        Config::$isProduction = config('services.midtrans.isProduction');
+        Config::$isSanitized = config('services.midtrans.isSanitized');
+        Config::$is3ds = config('services.midtrans.is3ds');
+
+
+        if($validation->fails())
+        {
+            return ResponseFormmater::error(null, $validation->errors()->first());
+        }
 
         $transaction = Transaction::create([
             'user_id' => $request->user_id,
@@ -104,21 +120,13 @@ class TransactionController extends Controller
             'status' => $request->status,
             'payment_url' => '',
             'checkin' => $request->checkin,
-            'nama_bandara' => '',
-            'provinsi' => '',
-            'nama_pesawat' => '',
-            'jam_terbang' => ''
+            'nama_bandara' => $request->nama_bandara,
+            'provinsi' =>  $request->provinsi,
+            'picture_pesawat' => $request->picture_pesawat,
+            'jam_terbang' =>  $request->jam_terbang
         ]);
 
-
-        Config::$serverKey = config('services.midtrans.serverKey');
-        Config::$isProduction = config('services.midtrans.isProduction');
-        Config::$isSanitized = config('services.midtrans.isSanitized');
-        Config::$is3ds = config('services.midtrans.is3ds');
-
-
-
-        $transaction = Transaction::with(['product','destinasi', 'user'])->find($transaction->id);
+        $transaction = Transaction::with(['product', 'destinasi', 'user'])->find($transaction->id);
 
         $midtrans = [
             'transaction_details' => [
@@ -129,6 +137,15 @@ class TransactionController extends Controller
             'customer_details' => [
                 'first_name' => $transaction->user->name,
                 'email' => $transaction->user->email
+            ],
+
+            'item_details' => [
+                [
+                    'id'=> $transaction->product ? $transaction->product->id:($transaction->destinasi ? $transaction->destinasi->id:'-'),
+                    'price'=> $transaction->total,
+                    'quantity'=> $transaction->quantity,
+                    'name'=> $transaction->product ? $transaction->product->name:($transaction->destinasi ? $transaction->destinasi->name:'-'),
+                ]
             ],
             'enabled_payment' => [
                 'gopay',

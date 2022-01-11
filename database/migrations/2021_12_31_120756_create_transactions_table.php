@@ -18,17 +18,18 @@ class CreateTransactionsTable extends Migration
 
 
             $table->integer('user_id');
-            $table->integer('product_id');
-            $table->integer('destinasi_id');
+            $table->integer('product_id')->nullable();
+            $table->integer('destinasi_id')->nullable();
             $table->integer('quantity');
             $table->integer('total');
             $table->string('status');
             $table->text('payment_url');
 
-            $table->string('checkin');
-            $table->string('nama_bandara');
-            $table->string('provinsi');
-            $table->string('jam_terbang');
+            $table->string('checkin')->nullable();
+            $table->string('nama_bandara')->nullable();
+            $table->string('provinsi')->nullable();
+            $table->string('jam_terbang')->nullable();
+            $table->text('picture_pesawat')->nullable();
 
             $table->timestamps();
         });
